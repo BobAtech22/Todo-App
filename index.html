@@ -5,32 +5,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
 
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fugaz+One&family=Josefin+Sans:wght@400;700&family=Orbitron:wght@400;700;900&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
   
   <title>Frontend Mentor | Todo app</title>
 
   <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
+
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  Todo
-
-  <!-- Add dynamic number --> items left
-
-  All
-  Active 
-  Completed
-
-  Clear Completed
-
-  Drag and drop to reorder list
-
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
+  <div class="bg_pic_div">
+    <img class="bg_pic" src="images/bg-desktop-dark.jpg" alt="">
   </div>
+  <main>
+
+    <div class="main_content">
+      <div class="title_div">
+        <h1 id="title">TODO</h1>
+        <div class="svg_d">
+          <img class="time_mode" src="images/icon-sun.svg" alt="svg">
+        </div>        
+      </div>
+      <div class="new_task_div cont">
+        <div class="cont_inner">
+          <div class="circle"></div>
+          <input class="cont_text" type="text" placeholder="Create a new todo">
+        </div>
+        
+      </div>
+      <div class="tasks_div"></div>
+      <div class="task_filter_div cont">
+        <div class="center_div">
+          <h4>5 items left</h4>
+          <div class="filter">
+            <h4>All</h4>
+            <h4>Active</h4>
+            <h4>Completed</h4>  
+          </div>
+          <h4>Clear Completed</h4>
+        </div>
+      </div>
+
+    </div>
+    
+    
+  </main>
+  
+
+
+
+
 </body>
 </html>
