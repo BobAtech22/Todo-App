@@ -1,14 +1,28 @@
+/* font type for all text content */
+*{
+    font-family: 'Josefin Sans',sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 18px;
+    
+}
+
+
+/* -----------------Main desktop ------------------- */
+    /* body :default background black */
 body{
- font-family: sans-serif ;
  background-color: #171823 ;
 }
+
 
 main{
     display: flex;
     justify-content: center;
     width: 100%;
-
 }
+
+    /* background picture default dark-desktop */
 .bg_pic_div{
     width: 100%;
     position: absolute;
@@ -26,7 +40,7 @@ main{
     width: 540px;
 }
 
-/* top logo div */
+    /* top logo div */
 .title_div{
     position: relative;
     display: flex;
@@ -42,14 +56,12 @@ main{
     font-weight: 700;
     font-size: 40px;
     line-height: 40px;
-    /* identical to box height */
-
     letter-spacing: 15px;
-
     color: #FFFFFF;
 }
 
-/* main container for content */
+    /* main container for content */
+  
 .cont{
     display: flex;
     flex-direction: column;
@@ -59,6 +71,10 @@ main{
     background: #25273D;
     box-shadow: 0px 35px 50px -15px rgba(0, 0, 0, 0.5);
 }
+.point:hover{
+    cursor: pointer;
+}
+
 
 .circle{
     border: 1px solid #393A4B;
@@ -67,12 +83,20 @@ main{
     border-radius: 50%;
     margin-right: 24px;
 }
+.circle:hover{
+    border: 1px solid #ffffff;
+}
 
 .cont_inner{
     display: flex;
     flex-direction: row;
+    align-items: center;
     margin-left: 24px;
 }
+.cont_inner p{
+    padding-top: 10px;
+}
+
 .cont_text{
     margin: 0px;
     height: 24px;
@@ -143,4 +167,18 @@ li{
 .h4_white{
     font-size: 14px;
     color: #9495A5 ;
+}
+
+
+/* black theme */
+.cont_black_over{
+    background: rgba(236, 238, 245, 0.8)
+}
+
+.draggable{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 510px;
 }
