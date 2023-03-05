@@ -70,21 +70,71 @@ main{
     height: 64px;
     background: #25273D;
     box-shadow: 0px 35px 50px -15px rgba(0, 0, 0, 0.5);
+    
 }
 .point:hover{
     cursor: pointer;
 }
 
 
+/* check circle + display behavior */
 .circle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: 1px solid #393A4B;
+    /* background-color: #25273D; */
     width: 24px;
     height: 24px;
     border-radius: 50%;
     margin-right: 24px;
 }
+
+.in_circle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    background: #25273D;
+    border-radius: 50%;
+}
+.cont_white{
+    background: #FFFFFF;
+    box-shadow: 0px 35px 50px -15px rgba(0, 0, 0, 0.5);
+}
+
+.circle_white{
+    border: 1px solid #E3E4F1;
+
+}
+.in_circle_white{
+    background: #FFFFFF;
+}
+.cont_text_white{
+    color: #494C6B;
+}
+.in_circle img{
+    display: none;
+}
+.active_circle{
+        background: linear-gradient(135deg, #55DDFF 0%, #C058F3 100%);
+}
+
 .circle:hover{
-    border: 1px solid #ffffff;
+    border: 0px solid;
+    background: linear-gradient(135deg, #55DDFF 0%, #C058F3 100%);
+    cursor: pointer;
+  }
+
+
+
+
+.cross{
+    display: none;
+}
+li:hover .cross{
+    display: block;
 }
 
 .cont_inner{
@@ -139,29 +189,21 @@ li{
   margin: 0px;
   padding: 0px;
 }
-.drag_list{
+.u_list{
   padding: 0px;
   margin: 0px;
 }
 
+.done{
+    text-decoration-line: line-through;
+
+}
 
 
 
 
 /* white theme */
-.cont_white{
-    background: #FFFFFF;
-    box-shadow: 0px 35px 50px -15px rgba(0, 0, 0, 0.5);
-}
 
-.circle_white{
-    border: 1px solid #E3E4F1;
-
-}
-
-.cont_text_white{
-    color: #494C6B;
-}
 
 /* lower filter div */
 .h4_white{
