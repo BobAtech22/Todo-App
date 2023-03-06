@@ -230,3 +230,13 @@ li{
     height: 100%;
     width: 510px;
 }
+
+.reorder_text{
+    display: flex;
+    justify-content: center;
+    margin-top: 49px;
+}
+
+.reorder_text h4{
+    margin: 0px;
+}

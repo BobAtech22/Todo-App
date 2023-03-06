@@ -12,6 +12,8 @@ const all_filter = document.querySelector(".all");
 const comp_filter = document.querySelector(".completed");
 const active_filter = document.querySelector(".active");
 
+
+
 const bg_pic = document.querySelector(".bg_pic");
 const time_mode = document.querySelector(".time_mode");
 
@@ -28,17 +30,23 @@ remaining.innerHTML = `${active.length} items left`
 main_c.addEventListener("click",()=>{
     fill_list(all_list)
     circle_event(main_c.children[0])
+    setTimeout(()=>{
+        circle_event(main_c.children[0])},200)
 });
 
 document.addEventListener('keydown',(btn)=>{
     if (btn.key == "Enter"){
         fill_list(all_list);
+        circle_event(main_c.children[0])
+        setTimeout(()=>{
+            circle_event(main_c.children[0])},200)
     }
 });
 
 time_mode.addEventListener("click",()=>{
     alt_time();
 });
+
 
 
 
@@ -65,6 +73,8 @@ comp_filter.addEventListener("click",()=>{
     all_filter.classList.remove("selected_filter");
     comp_filter.classList.remove("selected_filter");
 })
+
+
 
 
 function hide_active_cont(){
@@ -104,11 +114,13 @@ const circle_event = (item)=>{
                 circle.classList.add("active_circle");
                 item.classList.add("active_circle");
                 text.classList.add("done");
+                text.classList.remove("not_done");
             }else{
                 check.style.display = "none"
                 circle.classList.remove("active_circle");
                 item.classList.remove("active_circle");
                 text.classList.remove("done");
+                text.classList.add("not_done");
             }
 }
 
@@ -167,6 +179,7 @@ function inactive(value){
 function create_task(word,ul){
     const item = document.createElement('li')
     item.classList.add("cont")
+    item.classList.add("swap")
     if (is_night == false){
         item.classList.add("cont_white")
     }
@@ -174,12 +187,12 @@ function create_task(word,ul){
     item.innerHTML = `
     <div class="draggable" draggable="true">
     <div class="cont_inner">
-      <div class="circle">
+      <div class="circle li_circle">
         <div class="in_circle">
             <img class="checked" src="images/icon-check.svg" alt="">
         </div>
       </div>
-      <p class="cont_text">${word}</p>
+      <p class="cont_text not_done">${word}</p>
     </div>
     <img class="cross point" src="images/icon-cross.svg">
     </div>
@@ -188,7 +201,7 @@ function create_task(word,ul){
     let text = item.children[0].children[0].children[1];
     let cross = item.children[0].children[1]
     cross.addEventListener("click",()=>{
-        //pass
+        remove(item)
     })
     
     if (is_night == false){
@@ -206,7 +219,7 @@ function create_task(word,ul){
     dragEventListeners();
     console.log(index)
     index +=1
- 
+    update_all_data_array()
 }
 
 
@@ -331,12 +344,48 @@ function alt_time(){
 
 // function to swap todo task content
 function swap(idx1,idx2){
-    let task_list = document.querySelectorAll("li  div p");
+    let task_list = document.querySelectorAll(".swap");
     let item1 = task_list[idx1].innerHTML;
     let item2 = task_list[idx2].innerHTML;
     
     task_list[idx1].innerHTML = item2;
     task_list[idx2].innerHTML = item1;
+
+
+    const check_circle = document.querySelectorAll(".li_circle")
+    check_circle.forEach((item)=>{
+        item.addEventListener("click",()=>{
+            circle_event(item.children[0])
+            fill_completed(item.parentNode.children[1])
+            // reverse(text.innerHTML)
+            remaining.innerHTML = `${active.length} items left`
+        })
+    })
+    update_all_data_array()
 }
 
 //removing list item
+function remove(li){
+    li.parentNode.removeChild(li);
+    update_all_data_array()
+    remaining.innerHTML = `${active.length} items left`
+    
+}
+
+function update_all_data_array(){
+    let p_comp = document.querySelectorAll("li .done");
+    let p_active = document.querySelectorAll("li .not_done");
+    let p_all = document.querySelectorAll("li .cont_text");
+    completed = fill_data(p_comp,completed);
+    active = fill_data(p_active,active);
+    allTasks = fill_data(p_all,allTasks);
+}
+
+function fill_data(p_list,array){
+    array = []
+    p_list.forEach((p)=>{
+        array.push(p.innerHTML)
+    })
+    return array
+}
+// ----------------------------------------------------------------------
