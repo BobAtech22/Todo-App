@@ -192,7 +192,7 @@ function create_task(word,ul){
             <img class="checked" src="images/icon-check.svg" alt="">
         </div>
       </div>
-      <p class="cont_text not_done">${word}</p>
+      <p class="cont_text not_done point">${word}</p>
     </div>
     <img class="cross point" src="images/icon-cross.svg">
     </div>
@@ -306,12 +306,18 @@ function dragEventListeners(){
 
 // Day and night themes for desktop mode
 function alt_time(){
+    // variables
     let all_conts = document.querySelectorAll(".cont")
     let all_circles = document.querySelectorAll(".in_circle")
     let outer_circles = document.querySelectorAll(".circle")
+    
+    
     if (is_night == true){
+        // Dark_Mode
+            // pictures
         bg_pic.src=`images/bg-desktop-light.jpg`
         time_mode.src=`images/icon-moon.svg`
+            //containers(div elements)
         all_conts.forEach((cont)=>{
         cont.classList.add("cont_white")
         })
@@ -325,6 +331,7 @@ function alt_time(){
         is_night = false
 
     }else{
+        // Light_Mode
         bg_pic.src=`images/bg-desktop-dark.jpg`
         time_mode.src=`images/icon-sun.svg`
         all_conts.forEach((cont)=>{

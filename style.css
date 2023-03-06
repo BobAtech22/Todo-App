@@ -77,6 +77,7 @@ main{
 }
 
 
+
 /* check circle + display behavior */
 .circle{
     display: flex;
@@ -98,21 +99,6 @@ main{
     height: 22px;
     background: #25273D;
     border-radius: 50%;
-}
-.cont_white{
-    background: #FFFFFF;
-    box-shadow: 0px 35px 50px -15px rgba(0, 0, 0, 0.5);
-}
-
-.circle_white{
-    border: 1px solid #E3E4F1;
-
-}
-.in_circle_white{
-    background: #FFFFFF;
-}
-.cont_text_white{
-    color: #494C6B;
 }
 .in_circle img{
     display: none;
@@ -165,6 +151,21 @@ li:hover .cross{
 }
 
 /* lower filter div */
+.filter{
+    display: flex;
+    width: 166px;
+    justify-content: space-between;
+}
+.f_click{
+    font-weight: 700;
+}
+.f_click:hover{
+    color: #E3E4F1;
+}
+.cc{
+    font-weight: 400;
+}
+
 h4{
     font-size: 14px;
     color: #5B5E7E ;
@@ -178,11 +179,7 @@ h4{
     justify-content: space-around;
 
 }
-.filter{
-    display: flex;
-    width: 166px;
-    justify-content: space-between;
-}
+
 
 li{
   list-style-type: none;
@@ -197,18 +194,56 @@ li{
 #new{
     text-decoration-line: none;
 }
+#new:focus{
+    outline: none;
+}
+
+
+
 .done{
     text-decoration-line: line-through;
-
+    color: #4D5067;
 }
 
 .selected_filter{
-    color: #3A7CFD;
+    color: #3A7CFD !important;
 }
 
 
 
 /* white theme */
+.cont_white{
+    background: #FFFFFF;
+    box-shadow: 0px 35px 50px -15px rgba(0, 0, 0, 0.5);
+    
+}
+
+.cont_white input{
+    color: #494C6B;
+}
+
+.cont_white p{
+    color: #494C6B;
+}
+.cont_white h4{
+    color: #9495A5;
+}
+
+.cont_white h4:hover{
+    color: #494C6B;
+}
+
+
+.circle_white{
+    border: 1px solid #E3E4F1;
+
+}
+.in_circle_white{
+    background: #FFFFFF;
+}
+.cont_text_white{
+    color: #494C6B;
+}
 
 
 /* lower filter div */
@@ -239,4 +274,7 @@ li{
 
 .reorder_text h4{
     margin: 0px;
+}
+.selected_filter{
+    color: #3A7CFD;
 }
