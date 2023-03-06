@@ -1,14 +1,16 @@
 let allTasks = [];
 let completed = [];
-let active = [];
+let active =[]
+
 let is_night = true;
 let is_in = false;
 let newTask = document.querySelector(".new_task");
 const main_c = document.querySelector(".main_c");
 
 const all_list = document.querySelector(".all_list");
-const comp_list = document.querySelector(".comp_list");
-const active_list = document.querySelector(".active_list");
+const all_filter = document.querySelector(".all");
+const comp_filter = document.querySelector(".completed");
+const active_filter = document.querySelector(".active");
 
 const bg_pic = document.querySelector(".bg_pic");
 const time_mode = document.querySelector(".time_mode");
@@ -18,37 +20,95 @@ const time_mode = document.querySelector(".time_mode");
 let start_index;
 let index = 0
 
+let remaining = document.querySelector(".count")
+
+
+remaining.innerHTML = `${active.length} items left`
 
 main_c.addEventListener("click",()=>{
     fill_list(all_list)
     circle_event(main_c.children[0])
-})
+});
 
 document.addEventListener('keydown',(btn)=>{
     if (btn.key == "Enter"){
-        fill_list(all_list)
+        fill_list(all_list);
     }
-})
+});
 
 time_mode.addEventListener("click",()=>{
-    alt_time()
+    alt_time();
+});
+
+
+
+all_filter.addEventListener("click",()=>{
+    let list = all_list.childNodes;
+    list.forEach((li)=>{
+        li.style.display="block"
+    })
+    all_filter.classList.add("selected_filter");
+    comp_filter.classList.remove("selected_filter");
+    active_filter.classList.remove("selected_filter");
+})
+
+comp_filter.addEventListener("click",()=>{
+    hide_active_cont()
+    comp_filter.classList.add("selected_filter");
+    all_filter.classList.remove("selected_filter");
+    active_filter.classList.remove("selected_filter");
+})
+
+ active_filter.addEventListener("click",()=>{
+    hide_comp_cont();
+    active_filter.classList.add("selected_filter");
+    all_filter.classList.remove("selected_filter");
+    comp_filter.classList.remove("selected_filter");
 })
 
 
+function hide_active_cont(){
+    let list = all_list.childNodes;
+    let p_items = document.querySelectorAll("li .done");
+    
+    list.forEach((li)=>{
+            li.style.display="none";
+    })
+    p_items.forEach((item)=>{
+        let li_item = item.parentNode.parentNode.parentNode;
+        li_item.style.display="block";
+    })
 
+}
 
+function hide_comp_cont(){
+    let list = all_list.childNodes;
+    let p_items = document.querySelectorAll("li .done");
+    
+    list.forEach((li)=>{
+            li.style.display="block";
+    })
+    p_items.forEach((item)=>{
+        let li_item = item.parentNode.parentNode.parentNode;
+        li_item.style.display="none";
+    })
+
+}
 
 const circle_event = (item)=>{
             let check = item.children[0];
             let circle = item.parentNode;
+            let text = item.parentNode.parentNode.children[1]
             if (check.style.display != 'block'){
                 check.style.display = "block";
                 circle.classList.add("active_circle");
                 item.classList.add("active_circle");
+                text.classList.add("done");
             }else{
                 check.style.display = "none"
                 circle.classList.remove("active_circle");
                 item.classList.remove("active_circle");
+                text.classList.remove("done");
             }
 }
 
@@ -68,23 +128,38 @@ const fill_list = (ul)=>{
         create_task(words,ul)
         newTask.value='';
     }
+
+    remaining.innerHTML = `${active.length} items left`
 }
 
 function fill_completed(item){
-    item.classList.add("done");
-    completed.push(item.innerHTML);
-    create_task_comp(item.innerHTML,comp_list);
+    let text = item.innerHTML;
+    
+    if (item.className == 'cont_text done'){
+        completed.push(text);
+        inactive(text)
+        console.log("yes")
+    }else{
+        active.push(text)
+        let index = completed.indexOf(text)
+        completed.splice(index,1)
+        console.log("no")
+    }  
 }
 
+function inactive(value){
+    let index = active.indexOf(value)
+    active.splice(index,1)
+}
 // function make_active_array(){
-//     active = []
-//     allTasks.forEach((item)=>{
+//     let active = []
+//     active = allTasks.forEach((item)=>{
 //         if (completed.includes(item)){
-//             //pass
-//         }else{
-//             active.push(item)
+//            let idx = allTasks.indexOf(item);
+//            allTasks.splice(idx,1)
 //         }
 //     })
+//     return active
 // }
 
 
@@ -121,19 +196,10 @@ function create_task(word,ul){
         circle.children[0].classList.add("in_circle_white")
     }
     circle.addEventListener("click",()=>{
-        
         circle_event(circle.children[0])
-        if (is_in == false){
-            fill_completed(text);
-            let index = active.indexOf(text.innerHTML);
-            active.splice(index,1);
-            is_in = true;
-        }else{
-            reverse(text.innerHTML);
-            active.push(text.innerHTML)
-            is_in = false;
-        }
-        make_active_array()
+        fill_completed(text)
+        // reverse(text.innerHTML)
+        remaining.innerHTML = `${active.length} items left`
     })
 
     ul.appendChild(item);
@@ -163,46 +229,6 @@ function reverse(value){
 
 
 
-
-function create_task_comp(word,ul){
-    const item = document.createElement('li')
-    item.classList.add("cont")
-    if (is_night == false){
-        item.classList.add("cont_white")
-    }
-    item.setAttribute('d_index',index)
-    item.innerHTML = `
-    <div class="draggable" draggable="true">
-    <div class="cont_inner">
-      <div class="circle active_circle">
-        <div class="in_circle active_circle">
-            <img class="checked" src="images/icon-check.svg" alt="">
-        </div>
-      </div>
-      <p class="cont_text done">${word}</p>
-    </div>
-    <img class="cross point" src="images/icon-cross.svg">
-    </div>
-    `;
-    let circle = item.children[0].children[0].children[0];
-    let cross = item.children[0].children[1]
-    circle.children[0].children[0].style.display= "block";
-    cross.addEventListener("click",()=>{
-        //pass
-    })
-    
-    if (is_night == false){
-        circle.classList.add("circle_white")
-        circle.children[0].classList.add("in_circle_white")
-    }
-    
-
-
-    ul.appendChild(item);
-    dragEventListeners();
-    index +=1
- 
-}
 
 
 

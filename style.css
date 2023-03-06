@@ -194,11 +194,17 @@ li{
   margin: 0px;
 }
 
+#new{
+    text-decoration-line: none;
+}
 .done{
     text-decoration-line: line-through;
 
 }
 
+.selected_filter{
+    color: #3A7CFD;
+}
 
 
 
