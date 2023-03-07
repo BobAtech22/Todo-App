@@ -218,6 +218,7 @@ function create_task(word,ul){
     if (is_night == false){
         circle.classList.add("circle_white")
         circle.children[0].classList.add("in_circle_white")
+        item.classList.add("swap_white")
     }
     circle.addEventListener("click",()=>{
         circle_event(circle.children[0])
