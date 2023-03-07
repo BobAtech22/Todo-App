@@ -11,12 +11,23 @@ const all_list = document.querySelector(".all_list");
 const all_filter = document.querySelector(".all");
 const comp_filter = document.querySelector(".completed");
 const active_filter = document.querySelector(".active");
-
+const clear_comp = document.querySelector(".clear_completed");
 
 
 const bg_pic = document.querySelector(".bg_pic");
 const time_mode = document.querySelector(".time_mode");
 
+const all_mobile = document.querySelector(".all_m")
+const comp_mobile = document.querySelector(".completed_m")
+const active_mobile = document.querySelector(".active_m")
+const mobile = document.querySelector(".mobile")
+// window.addEventListener('resize',()=>{
+//     if (window.innerWidth < 500){
+//         if(is_night = true){
+//             bg_pic.
+//         }
+//     }
+// })
 
 
 let start_index;
@@ -74,7 +85,10 @@ comp_filter.addEventListener("click",()=>{
     comp_filter.classList.remove("selected_filter");
 })
 
-
+clear_comp.addEventListener("click",()=>{
+    removeAll();
+    update_all();
+})
 
 
 function hide_active_cont(){
@@ -131,9 +145,6 @@ const fill_list = (ul)=>{
     let words = newTask.value
     if (words == ''){
         console.log("zero")
-    }else if(words.length > 40 ){
-        alert("Todo statement is too long please keep it brief")
-        newTask.value='';
     }else{
         allTasks.push(words);
         active.push(words);
@@ -144,25 +155,25 @@ const fill_list = (ul)=>{
     remaining.innerHTML = `${active.length} items left`
 }
 
-function fill_completed(item){
-    let text = item.innerHTML;
+// function fill_completed(item){
+//     let text = item.innerHTML;
     
-    if (item.className == 'cont_text done'){
-        completed.push(text);
-        inactive(text)
-        console.log("yes")
-    }else{
-        active.push(text)
-        let index = completed.indexOf(text)
-        completed.splice(index,1)
-        console.log("no")
-    }  
-}
+//     if (item.className == 'cont_text done'){
+//         completed.push(text);
+//         inactive(text)
+//         console.log("yes")
+//     }else{
+//         active.push(text)
+//         let index = completed.indexOf(text)
+//         completed.splice(index,1)
+//         console.log("no")
+//     }  
+// }
 
-function inactive(value){
-    let index = active.indexOf(value)
-    active.splice(index,1)
-}
+// function inactive(value){
+//     let index = active.indexOf(value)
+//     active.splice(index,1)
+// }
 // function make_active_array(){
 //     let active = []
 //     active = allTasks.forEach((item)=>{
@@ -210,8 +221,9 @@ function create_task(word,ul){
     }
     circle.addEventListener("click",()=>{
         circle_event(circle.children[0])
-        fill_completed(text)
+        // fill_completed(text)
         // reverse(text.innerHTML)
+        update_all()
         remaining.innerHTML = `${active.length} items left`
     })
 
@@ -219,7 +231,8 @@ function create_task(word,ul){
     dragEventListeners();
     console.log(index)
     index +=1
-    update_all_data_array()
+    update_all()
+
 }
 
 
@@ -310,12 +323,19 @@ function alt_time(){
     let all_conts = document.querySelectorAll(".cont")
     let all_circles = document.querySelectorAll(".in_circle")
     let outer_circles = document.querySelectorAll(".circle")
-    
-    
+    let li = document.querySelectorAll(".swap")
+
     if (is_night == true){
         // Dark_Mode
             // pictures
-        bg_pic.src=`images/bg-desktop-light.jpg`
+        if (window.innerWidth < 420){
+            bg_pic.src=`images/bg-mobile-light.jpg`
+        }else{
+            bg_pic.src=`images/bg-desktop-light.jpg`
+        }
+
+        mobile.classList.add("mobile_white")
+
         time_mode.src=`images/icon-moon.svg`
             //containers(div elements)
         all_conts.forEach((cont)=>{
@@ -323,26 +343,43 @@ function alt_time(){
         })
         all_circles.forEach((cont)=>{
             cont.classList.add("in_circle_white")
-            })
+        })
         outer_circles.forEach((cont)=>{
             cont.classList.add("circle_white")
-            })
+        })
+
+        li.forEach((cont)=>{
+            cont.classList.add("swap_white")
+        })
+
+
         document.querySelector("body").style.backgroundColor= "#F2F2F2"
         is_night = false
 
     }else{
         // Light_Mode
-        bg_pic.src=`images/bg-desktop-dark.jpg`
+        if (window.innerWidth < 420){
+            bg_pic.src=`images/bg-mobile-dark.jpg`
+        }else{
+            bg_pic.src=`images/bg-desktop-dark.jpg`
+        }
+        
+        mobile.classList.remove("mobile_white")
         time_mode.src=`images/icon-sun.svg`
         all_conts.forEach((cont)=>{
         cont.classList.remove("cont_white")
         })
         all_circles.forEach((cont)=>{
             cont.classList.remove("in_circle_white")
-            })
+        })
         outer_circles.forEach((cont)=>{
             cont.classList.remove("circle_white")
-            })
+        })
+
+        li.forEach((cont)=>{
+            cont.classList.add("swap_white")
+        })
+
         document.querySelector("body").style.backgroundColor= "#171823"
         is_night = true
 
@@ -368,15 +405,23 @@ function swap(idx1,idx2){
             remaining.innerHTML = `${active.length} items left`
         })
     })
-    update_all_data_array()
+    update_all()
 }
 
 //removing list item
 function remove(li){
     li.parentNode.removeChild(li);
-    update_all_data_array()
+    update_all()
     remaining.innerHTML = `${active.length} items left`
     
+}
+
+function removeAll(){
+    let p_comp = document.querySelectorAll("li .done");
+    p_comp.forEach((item)=>{
+        let li = item.parentNode.parentNode.parentNode;
+        li.parentNode.removeChild(li);
+    })
 }
 
 function update_all_data_array(){
@@ -396,3 +441,45 @@ function fill_data(p_list,array){
     return array
 }
 // ----------------------------------------------------------------------
+
+
+function round_top(){
+    let li_one = all_list.firstChild
+    let all_li = document.querySelectorAll("li")
+    all_li.forEach((li)=>{
+        li.classList.remove("round_top");
+    });
+    li_one.classList.add("round_top");
+}
+
+function update_all(){
+    update_all_data_array()
+    round_top()
+}
+
+
+
+all_mobile.addEventListener("click",()=>{
+    let list = all_list.childNodes;
+    list.forEach((li)=>{
+        li.style.display="block"
+    })
+    all_mobile.classList.add("selected_filter");
+    comp_mobile.classList.remove("selected_filter");
+    active_mobile.classList.remove("selected_filter");
+    
+})
+
+comp_mobile.addEventListener("click",()=>{
+    hide_active_cont()
+    comp_mobile.classList.add("selected_filter");
+    all_mobile.classList.remove("selected_filter");
+    active_mobile.classList.remove("selected_filter");
+})
+
+ active_mobile.addEventListener("click",()=>{
+    hide_comp_cont();
+    active_mobile.classList.add("selected_filter");
+    all_mobile.classList.remove("selected_filter");
+    comp_mobile.classList.remove("selected_filter");
+})
