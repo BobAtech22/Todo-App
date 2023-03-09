@@ -109,7 +109,7 @@ main{
 }
 
 .circle:hover{
-    border: 0px solid;
+    border: 1px solid transparent;
     background: linear-gradient(135deg, #55DDFF 0%, #C058F3 100%);
     cursor: pointer;
   }
@@ -276,7 +276,7 @@ li{
 
 /* black theme */
 .cont_black_over{
-    background: rgba(236, 238, 245, 0.8)
+    background: rgba(150, 150, 151, 0.8)
 }
 
 .draggable{
@@ -512,7 +512,7 @@ li{
     }
     /* black theme */
     .cont_black_over{
-        background: rgba(236, 238, 245, 0.8)
+        background: rgba(150, 150, 151, 0.8)
     }
 
     .draggable{
@@ -540,4 +540,7 @@ li{
         margin-left: 18px;
         margin-right: 18px;
     }
+}
+.active_circle{
+    background: linear-gradient(135deg, #55DDFF 0%, #C058F3 100%);
 }

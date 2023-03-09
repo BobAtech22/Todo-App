@@ -1,6 +1,6 @@
-let allTasks = [];
+
 let completed = [];
-let active =[]
+let active = []
 
 let is_night = true;
 let is_in = false;
@@ -21,13 +21,10 @@ const all_mobile = document.querySelector(".all_m")
 const comp_mobile = document.querySelector(".completed_m")
 const active_mobile = document.querySelector(".active_m")
 const mobile = document.querySelector(".mobile")
-// window.addEventListener('resize',()=>{
-//     if (window.innerWidth < 500){
-//         if(is_night = true){
-//             bg_pic.
-//         }
-//     }
-// })
+
+
+
+
 
 
 let start_index;
@@ -38,163 +35,135 @@ let remaining = document.querySelector(".count")
 
 remaining.innerHTML = `${active.length} items left`
 
-main_c.addEventListener("click",()=>{
+main_c.addEventListener("click", () => {
     fill_list(all_list)
     circle_event(main_c.children[0])
-    setTimeout(()=>{
-        circle_event(main_c.children[0])},200)
+    setTimeout(() => {
+        circle_event(main_c.children[0])
+    }, 200)
 });
 
-document.addEventListener('keydown',(btn)=>{
-    if (btn.key == "Enter"){
+document.addEventListener('keydown', (btn) => {
+    if (btn.key == "Enter") {
         fill_list(all_list);
         circle_event(main_c.children[0])
-        setTimeout(()=>{
-            circle_event(main_c.children[0])},200)
+        setTimeout(() => {
+            circle_event(main_c.children[0])
+        }, 200)
     }
 });
 
-time_mode.addEventListener("click",()=>{
+time_mode.addEventListener("click", () => {
     alt_time();
 });
 
 
 
 
-all_filter.addEventListener("click",()=>{
+all_filter.addEventListener("click", () => {
     let list = all_list.childNodes;
-    list.forEach((li)=>{
-        li.style.display="block"
+    list.forEach((li) => {
+        li.style.display = "block"
     })
     all_filter.classList.add("selected_filter");
     comp_filter.classList.remove("selected_filter");
     active_filter.classList.remove("selected_filter");
 })
 
-comp_filter.addEventListener("click",()=>{
+comp_filter.addEventListener("click", () => {
     hide_active_cont()
     comp_filter.classList.add("selected_filter");
     all_filter.classList.remove("selected_filter");
     active_filter.classList.remove("selected_filter");
 })
 
- active_filter.addEventListener("click",()=>{
+active_filter.addEventListener("click", () => {
     hide_comp_cont();
     active_filter.classList.add("selected_filter");
     all_filter.classList.remove("selected_filter");
     comp_filter.classList.remove("selected_filter");
 })
 
-clear_comp.addEventListener("click",()=>{
+clear_comp.addEventListener("click", () => {
     removeAll();
     update_all();
 })
 
 
-function hide_active_cont(){
+function hide_active_cont() {
     let list = all_list.childNodes;
     let p_items = document.querySelectorAll("li .done");
-    
-    list.forEach((li)=>{
-            li.style.display="none";
+
+    list.forEach((li) => {
+        li.style.display = "none";
     })
-    p_items.forEach((item)=>{
+    p_items.forEach((item) => {
         let li_item = item.parentNode.parentNode.parentNode;
-        li_item.style.display="block";
+        li_item.style.display = "block";
     })
 
 }
 
-function hide_comp_cont(){
+function hide_comp_cont() {
     let list = all_list.childNodes;
     let p_items = document.querySelectorAll("li .done");
-    
-    list.forEach((li)=>{
-            li.style.display="block";
+
+    list.forEach((li) => {
+        li.style.display = "block";
     })
-    p_items.forEach((item)=>{
+    p_items.forEach((item) => {
         let li_item = item.parentNode.parentNode.parentNode;
-        li_item.style.display="none";
+        li_item.style.display = "none";
     })
 
 }
 
-const circle_event = (item)=>{
-            let check = item.children[0];
-            let circle = item.parentNode;
-            let text = item.parentNode.parentNode.children[1]
-            if (check.style.display != 'block'){
-                check.style.display = "block";
-                circle.classList.add("active_circle");
-                item.classList.add("active_circle");
-                text.classList.add("done");
-                text.classList.remove("not_done");
-            }else{
-                check.style.display = "none"
-                circle.classList.remove("active_circle");
-                item.classList.remove("active_circle");
-                text.classList.remove("done");
-                text.classList.add("not_done");
-            }
+const circle_event = (item) => {
+    let check = item.children[0];
+    let circle = item.parentNode;
+    let text = item.parentNode.parentNode.children[1]
+    if (check.style.display != 'block') {
+        check.style.display = "block";
+        circle.classList.add("active_circle");
+        item.classList.add("active_circle");
+        text.classList.add("done");
+        text.classList.remove("not_done");
+    } else {
+        check.style.display = "none"
+        circle.classList.remove("active_circle");
+        item.classList.remove("active_circle");
+        text.classList.remove("done");
+        text.classList.add("not_done");
+    }
 }
 
 
 // ------------------------------File functions------------
 // function to fill list
-const fill_list = (ul)=>{
+const fill_list = (ul) => {
     let words = newTask.value
-    if (words == ''){
+    if (words == '') {
         console.log("zero")
-    }else{
-        allTasks.push(words);
+    } else {
+        // allTasks.push(words);
         active.push(words);
-        create_task(words,ul)
-        newTask.value='';
+        create_task(words, ul)
+        newTask.value = '';
     }
 
     remaining.innerHTML = `${active.length} items left`
 }
 
-// function fill_completed(item){
-//     let text = item.innerHTML;
-    
-//     if (item.className == 'cont_text done'){
-//         completed.push(text);
-//         inactive(text)
-//         console.log("yes")
-//     }else{
-//         active.push(text)
-//         let index = completed.indexOf(text)
-//         completed.splice(index,1)
-//         console.log("no")
-//     }  
-// }
-
-// function inactive(value){
-//     let index = active.indexOf(value)
-//     active.splice(index,1)
-// }
-// function make_active_array(){
-//     let active = []
-//     active = allTasks.forEach((item)=>{
-//         if (completed.includes(item)){
-//            let idx = allTasks.indexOf(item);
-//            allTasks.splice(idx,1)
-//         }
-//     })
-//     return active
-// }
-
-
 //function to create elements-------------------------
-function create_task(word,ul){
+function create_task(word, ul) {
     const item = document.createElement('li')
     item.classList.add("cont")
     item.classList.add("swap")
-    if (is_night == false){
+    if (is_night == false) {
         item.classList.add("cont_white")
     }
-    item.setAttribute('d_index',index)
+    index += 1
+    item.setAttribute('d_index', index)
     item.innerHTML = `
     <div class="draggable" draggable="true">
     <div class="cont_inner">
@@ -209,21 +178,19 @@ function create_task(word,ul){
     </div>
     `;
     let circle = item.children[0].children[0].children[0];
-    let text = item.children[0].children[0].children[1];
+
     let cross = item.children[0].children[1]
-    cross.addEventListener("click",()=>{
+    cross.addEventListener("click", () => {
         remove(item)
     })
-    
-    if (is_night == false){
+
+    if (is_night == false) {
         circle.classList.add("circle_white")
         circle.children[0].classList.add("in_circle_white")
         item.classList.add("swap_white")
     }
-    circle.addEventListener("click",()=>{
+    circle.addEventListener("click", () => {
         circle_event(circle.children[0])
-        // fill_completed(text)
-        // reverse(text.innerHTML)
         update_all()
         remaining.innerHTML = `${active.length} items left`
     })
@@ -231,26 +198,26 @@ function create_task(word,ul){
     ul.appendChild(item);
     dragEventListeners();
     console.log(index)
-    index +=1
+
     update_all()
 
 }
 
 
-function reverse(value){
+function reverse(value) {
     console.log(value)
     let list = document.querySelectorAll(".comp_list li")
     let index = completed.indexOf(value);
-    completed.splice(index,1);
-    list.forEach((li)=>{
+    completed.splice(index, 1);
+    list.forEach((li) => {
         let text = li.children[0].children[0].children[1].innerHTML
-        if (text == value){
+        if (text == value) {
             li.parentNode.removeChild(li)
-            
+
         }
         console.log("done")
     })
-    
+
 }
 
 
@@ -264,49 +231,49 @@ function reverse(value){
 
 
 // ----------------Drag functions--------------------
-function dragStart(){
+function dragStart() {
     // console.log('start drag')
     start_index = +this.closest('li').getAttribute('d_index');
-    
+
 
 }
 
-function dragDrop(){
+function dragDrop() {
     // console.log('drop')
     this.classList.remove("cont_black_over");
     const end_index = +this.getAttribute('d_index');
     console.log(end_index);
-    swap(start_index,end_index)
+    swap(start_index, end_index)
 }
 
-function dragEnter(){
+function dragEnter() {
     // console.log('Enter')
     this.classList.add("cont_black_over")
-  
-    
+
+
 }
 
-function dragOver(event){
+function dragOver(event) {
     // console.log('drag over')
     event.preventDefault()
- 
+
 }
 
-function dragLeave(){
+function dragLeave() {
     // console.log('Leave')
     this.classList.remove("cont_black_over")
 }
 
 
-function dragEventListeners(){
+function dragEventListeners() {
     const drag_items = document.querySelectorAll(".draggable");
     const drag_list = document.querySelectorAll("li");
 
-    drag_items.forEach((item)=>{
+    drag_items.forEach((item) => {
         item.addEventListener('dragstart', dragStart)
     })
 
-    drag_list.forEach((item)=>{
+    drag_list.forEach((item) => {
         item.addEventListener('dragover', dragOver);
         item.addEventListener('drop', dragDrop);
         item.addEventListener('dragenter', dragEnter);
@@ -319,124 +286,135 @@ function dragEventListeners(){
 
 
 // Day and night themes for desktop mode
-function alt_time(){
+function alt_time() {
     // variables
     let all_conts = document.querySelectorAll(".cont")
     let all_circles = document.querySelectorAll(".in_circle")
     let outer_circles = document.querySelectorAll(".circle")
     let li = document.querySelectorAll(".swap")
 
-    if (is_night == true){
+    if (is_night == true) {
         // Dark_Mode
-            // pictures
-        if (window.innerWidth < 420){
-            bg_pic.src=`images/bg-mobile-light.jpg`
-        }else{
-            bg_pic.src=`images/bg-desktop-light.jpg`
+        // pictures
+        if (window.innerWidth < 420) {
+            bg_pic.src = `images/bg-mobile-light.jpg`
+        } else {
+            bg_pic.src = `images/bg-desktop-light.jpg`
         }
 
         mobile.classList.add("mobile_white")
 
-        time_mode.src=`images/icon-moon.svg`
-            //containers(div elements)
-        all_conts.forEach((cont)=>{
-        cont.classList.add("cont_white")
+        time_mode.src = `images/icon-moon.svg`
+        //containers(div elements)
+        all_conts.forEach((cont) => {
+            cont.classList.add("cont_white")
         })
-        all_circles.forEach((cont)=>{
+        all_circles.forEach((cont) => {
             cont.classList.add("in_circle_white")
         })
-        outer_circles.forEach((cont)=>{
+        outer_circles.forEach((cont) => {
             cont.classList.add("circle_white")
         })
 
-        li.forEach((cont)=>{
+        li.forEach((cont) => {
             cont.classList.add("swap_white")
         })
 
 
-        document.querySelector("body").style.backgroundColor= "#F2F2F2"
+        document.querySelector("body").style.backgroundColor = "#F2F2F2"
         is_night = false
 
-    }else{
+    } else {
         // Light_Mode
-        if (window.innerWidth < 420){
-            bg_pic.src=`images/bg-mobile-dark.jpg`
-        }else{
-            bg_pic.src=`images/bg-desktop-dark.jpg`
+        if (window.innerWidth < 420) {
+            bg_pic.src = `images/bg-mobile-dark.jpg`
+        } else {
+            bg_pic.src = `images/bg-desktop-dark.jpg`
         }
-        
+
         mobile.classList.remove("mobile_white")
-        time_mode.src=`images/icon-sun.svg`
-        all_conts.forEach((cont)=>{
-        cont.classList.remove("cont_white")
+        time_mode.src = `images/icon-sun.svg`
+        all_conts.forEach((cont) => {
+            cont.classList.remove("cont_white")
         })
-        all_circles.forEach((cont)=>{
+        all_circles.forEach((cont) => {
             cont.classList.remove("in_circle_white")
         })
-        outer_circles.forEach((cont)=>{
+        outer_circles.forEach((cont) => {
             cont.classList.remove("circle_white")
         })
 
-        li.forEach((cont)=>{
-            cont.classList.add("swap_white")
+        li.forEach((cont) => {
+            cont.classList.remove("swap_white")
         })
 
-        document.querySelector("body").style.backgroundColor= "#171823"
+        document.querySelector("body").style.backgroundColor = "#171823"
         is_night = true
 
     }
 }
 
 // function to swap todo task content
-function swap(idx1,idx2){
-    let task_list = document.querySelectorAll(".swap");
-    let item1 = task_list[idx1].innerHTML;
-    let item2 = task_list[idx2].innerHTML;
-    
-    task_list[idx1].innerHTML = item2;
-    task_list[idx2].innerHTML = item1;
+function swap(idx1, idx2) {
 
+    let item1 = document.querySelector(`[d_index = "${idx1}"]`);
+    let item2 = document.querySelector(`[d_index = "${idx2}"]`);
+    let rsv;
+    rsv = item1.innerHTML;
+    item1.innerHTML = item2.innerHTML;
+    item2.innerHTML = rsv;
+    let check = [item1, item2]
 
-    const check_circle = document.querySelectorAll(".li_circle")
-    check_circle.forEach((item)=>{
-        item.addEventListener("click",()=>{
-            circle_event(item.children[0])
-            fill_completed(item.parentNode.children[1])
-            // reverse(text.innerHTML)
+    check.forEach((item) => {
+        let circle = item.children[0].children[0].children[0];
+        let cross = item.children[0].children[1]
+        circle.addEventListener("click", () => {
+            circle_event(circle.children[0])
+            update_all()
             remaining.innerHTML = `${active.length} items left`
         })
+
+        cross.addEventListener("click", () => {
+            console.log(item.parentNode.parentNode)
+            remove(item)
+            remaining.innerHTML = `${active.length} items left`;
+        })
     })
+
+    // check_cross.forEach((item)=>{
+    //     
+    // })
     update_all()
 }
 
 //removing list item
-function remove(li){
+function remove(li) {
     li.parentNode.removeChild(li);
     update_all()
     remaining.innerHTML = `${active.length} items left`
-    
+
 }
 
-function removeAll(){
+function removeAll() {
     let p_comp = document.querySelectorAll("li .done");
-    p_comp.forEach((item)=>{
+    p_comp.forEach((item) => {
         let li = item.parentNode.parentNode.parentNode;
         li.parentNode.removeChild(li);
     })
 }
 
-function update_all_data_array(){
+function update_all_data_array() {
     let p_comp = document.querySelectorAll("li .done");
     let p_active = document.querySelectorAll("li .not_done");
-    let p_all = document.querySelectorAll("li .cont_text");
-    completed = fill_data(p_comp,completed);
-    active = fill_data(p_active,active);
-    allTasks = fill_data(p_all,allTasks);
+    // let p_all = document.querySelectorAll("li .cont_text");
+    completed = fill_data(p_comp, completed);
+    active = fill_data(p_active, active);
+    // allTasks = fill_data(p_all,allTasks);
 }
 
-function fill_data(p_list,array){
+function fill_data(p_list, array) {
     array = []
-    p_list.forEach((p)=>{
+    p_list.forEach((p) => {
         array.push(p.innerHTML)
     })
     return array
@@ -444,41 +422,44 @@ function fill_data(p_list,array){
 // ----------------------------------------------------------------------
 
 
-function round_top(){
+function round_top() {
     let li_one = all_list.firstChild
     let all_li = document.querySelectorAll("li")
-    all_li.forEach((li)=>{
+    all_li.forEach((li) => {
         li.classList.remove("round_top");
     });
-    li_one.classList.add("round_top");
+    if (document.querySelector("ul").childNodes.length != 0) {
+        li_one.classList.add("round_top");
+    }
+
 }
 
-function update_all(){
+function update_all() {
     update_all_data_array()
     round_top()
 }
 
 
 
-all_mobile.addEventListener("click",()=>{
+all_mobile.addEventListener("click", () => {
     let list = all_list.childNodes;
-    list.forEach((li)=>{
-        li.style.display="block"
+    list.forEach((li) => {
+        li.style.display = "block"
     })
     all_mobile.classList.add("selected_filter");
     comp_mobile.classList.remove("selected_filter");
     active_mobile.classList.remove("selected_filter");
-    
+
 })
 
-comp_mobile.addEventListener("click",()=>{
+comp_mobile.addEventListener("click", () => {
     hide_active_cont()
     comp_mobile.classList.add("selected_filter");
     all_mobile.classList.remove("selected_filter");
     active_mobile.classList.remove("selected_filter");
 })
 
- active_mobile.addEventListener("click",()=>{
+active_mobile.addEventListener("click", () => {
     hide_comp_cont();
     active_mobile.classList.add("selected_filter");
     all_mobile.classList.remove("selected_filter");
