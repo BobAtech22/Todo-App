@@ -57,7 +57,7 @@ time_mode.addEventListener("click", () => {
     alt_time();
 });
 
-
+// Filter events 
 function show_all(){
     let list = all_list.childNodes;
     list.forEach((li) => {
