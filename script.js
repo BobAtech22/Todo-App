@@ -17,12 +17,12 @@ const clear_comp = document.querySelector(".clear_completed");
 const bg_pic = document.querySelector(".bg_pic");
 const time_mode = document.querySelector(".time_mode");
 
-const all_mobile = document.querySelector(".all_m")
-const comp_mobile = document.querySelector(".completed_m")
-const active_mobile = document.querySelector(".active_m")
-const mobile = document.querySelector(".mobile")
+const all_mobile = document.querySelector(".all_m");
+const comp_mobile = document.querySelector(".completed_m");
+const active_mobile = document.querySelector(".active_m");
+const mobile = document.querySelector(".mobile");
 
-
+let filter_status = "all";
 
 
 
@@ -58,30 +58,37 @@ time_mode.addEventListener("click", () => {
 });
 
 
-
-
-all_filter.addEventListener("click", () => {
+function show_all(){
     let list = all_list.childNodes;
     list.forEach((li) => {
         li.style.display = "block"
     })
+}
+
+all_filter.addEventListener("click", () => {
+    show_all()
     all_filter.classList.add("selected_filter");
     comp_filter.classList.remove("selected_filter");
     active_filter.classList.remove("selected_filter");
+    filter_status = "all";
 })
 
 comp_filter.addEventListener("click", () => {
+    show_all()
     hide_active_cont()
     comp_filter.classList.add("selected_filter");
     all_filter.classList.remove("selected_filter");
     active_filter.classList.remove("selected_filter");
+    filter_status = "completed";
 })
 
 active_filter.addEventListener("click", () => {
+    show_all()
     hide_comp_cont();
     active_filter.classList.add("selected_filter");
     all_filter.classList.remove("selected_filter");
     comp_filter.classList.remove("selected_filter");
+    filter_status = "active";
 })
 
 clear_comp.addEventListener("click", () => {
@@ -191,6 +198,9 @@ function create_task(word, ul) {
     }
     circle.addEventListener("click", () => {
         circle_event(circle.children[0])
+        if(filter_status == "active"){
+            item.style.display = "none";
+        }
         update_all()
         remaining.innerHTML = `${active.length} items left`
     })
